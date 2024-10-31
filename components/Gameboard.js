@@ -61,20 +61,27 @@ export default Gameboard = ({ navigation, route }) => {
 
     const savePlayerPoints = async () => {
         const newKey = scores.length + 1;
+        const date = new Date();
+        const formattedDate = date.toLocaleDateString();
+        const formattedTime = date.toLocaleTimeString();
+        const totalPoints = dicePointsTotal.reduce((acc, points) => acc + points, 0); // Lasketaan pisteet
+    
         const playerPoints = {
             key: newKey,
             name: playerName,
-            date: 'date', //Hae tähän päivämäärä
-            time: 'time', //Hae tähän kellonaika
-            points: 0 //Sijoita tähän pelaajan pistemäärä
+            date: formattedDate,
+            time: formattedTime,
+            points: totalPoints
         }
+    
         try {
             const newScore = [...scores, playerPoints];
             const jsonValue = JSON.stringify(newScore);
             await AsyncStorage.setItem(SCOREBOARD_KEY, jsonValue);
             console.log('Gameboard: Save successful ' + jsonValue);
-        }
-        catch(e) {
+            setScores(newScore); //Päivitä scores tilaksi
+            setStatus("Points saved!");
+        } catch (e) {
             console.log('Gameboard: Save error: ' + e);
         }
     }
@@ -141,26 +148,55 @@ export default Gameboard = ({ navigation, route }) => {
         }
     }
 
+    //Tarkistetaan onko peli loppunut
+    const isGameEnd = () => {
+        return selectedDicePoints.every(point => point === true);
+    }
+
+    useEffect(() => {
+        if (isGameEnd()) {
+            setGameEndStatus(true);
+            setStatus("All points selected. Save your points!");
+            setNbrOfThrowsLeft(0);
+        }
+    }, [selectedDicePoints]);
+
     const chooseDicePoints = (i) => {
         if (nbrOfThrowsLeft === 0) {
             let selectedPoints = [...selectedDicePoints];
             let points = [...dicePointsTotal];
+    
             if (!selectedPoints[i]) {
+                //Varmistetaan, että pisteet tallennetaan
                 selectedPoints[i] = true;
-                let nbrOfDices =
-                    diceSpots.reduce((total, x) => (x === (i + 1) ? total + 1: total), 0);
-                points[i] = nbrOfDices * (i + 1);
-            }
-            else {
+    
+                //Lasketaan valittujen noppien silmäluvut
+                const selectedDiceValue = i + 1; // Silmäluvun arvo (1-6)
+                const nbrOfDices = diceSpots.reduce((total, x) => (x === selectedDiceValue ? total + 1 : total), 0); // Lasketaan kuinka monta valittua noppaa on
+    
+                //Tallennetaan yhteenlaskettu silmäluku
+                points[i] = nbrOfDices > 0 ? nbrOfDices * selectedDiceValue : 0;
+    
+                //Päivitetään pisteet ja tilat
+                setDicePointsTotal(points);
+                setSelectedDicePoints(selectedPoints);
+    
+                //Tarkista onko peli loppunut
+                if (isGameEnd()) {
+                    setGameEndStatus(true);
+                    setStatus("All points selected. Save your points!");
+                    //Nollataan heittomäärä
+                    setNbrOfThrowsLeft(0);
+                } else {
+                    //Nollaa heittolaskuri ja vapauta valinnat
+                    setNbrOfThrowsLeft(NBR_OF_THROWS);
+                    setSelectedDices(new Array(NBR_OF_DICES).fill(false));
+                }
+            } else {
                 setStatus("You already selected points for " + (i + 1));
-                return points[i];
             }
-            setDicePointsTotal(points);
-            setSelectedDicePoints(selectedPoints);
-            return points[i];
-        }
-        else {
-            setStatus("Throw " + NBR_OF_THROWS + " times before setting points.")
+        } else {
+            setStatus("Throw " + NBR_OF_THROWS + " times before setting points.");
         }
     }
 
@@ -178,17 +214,26 @@ export default Gameboard = ({ navigation, route }) => {
     }
 
     const throwDices = () => {
-        let spots = [...diceSpots];
-        for (let i = 0; i < NBR_OF_DICES; i++) {
-          if (!selectedDices[i]) {
-            let randomNumber = Math.floor(Math.random() * 6 + 1);
-            board[i] = 'dice-' + randomNumber;
-            spots[i] = randomNumber;
-          }
+        if (gameEndStatus) {
+            setStatus("Game has ended. Please save your score.");
+            return;
         }
-        setNbrOfThrowsLeft(nbrOfThrowsLeft-1);
-        setDiceSpots(spots);
-        setStatus('Select and throw dices again');
+        if (nbrOfThrowsLeft > 0) {
+            let spots = [...diceSpots];
+            for (let i = 0; i < NBR_OF_DICES; i++) {
+                if (!selectedDices[i]) {
+                    let randomNumber = Math.floor(Math.random() * 6 + 1);
+                    board[i] = 'dice-' + randomNumber;
+                    spots[i] = randomNumber;
+                }
+            }
+            setNbrOfThrowsLeft(nbrOfThrowsLeft - 1);
+            setDiceSpots(spots);
+            setStatus('Select and throw dices again');
+        }
+        else {
+            setStatus("No throws left. Select your points.");
+        }
     }
 
     return(
