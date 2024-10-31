@@ -64,5 +64,52 @@ export default StyleSheet.create({
   buttonText: {
     color:"#2B2B52",
     fontSize: 20
-  }
+  },
+  //Scoreboard tyylit
+  scoreboardContainer: {
+    flex: 1,
+    backgroundColor: '#f4f4f8',
+    padding: 20,
+  },
+  scoreboardTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  scoreItem: {
+    backgroundColor: '#e0e0e0',
+    padding: 15,
+    marginVertical: 8,
+    borderRadius: 8,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.2,
+    shadowRadius: 1,
+  },
+  scoreText: {
+    fontSize: 18,
+    color: '#333',
+  },
+  scoreDate: {
+    fontSize: 14,
+    color: '#666',
+  },
+  scoreboardButtonContainer: {
+    marginVertical: 20,
+    alignItems: 'center',
+  },
+  clearScoreboardButton: {
+    backgroundColor: '#ff6666',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    width: '50%',
+  },
+  clearScoreboardButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
 });
