@@ -200,13 +200,12 @@ export default Gameboard = ({ navigation, route }) => {
         }
     }
 
-    //vaihda värit
     function getDiceColor(i) {
-        return selectedDices[i] ? "black" : "steelblue";
+        return selectedDices[i] ? "black" : "#73CED6";
     }
 
     function getDicePointsColor(i) {
-        return (selectedDicePoints[i] && !gameEndStatus) ? "black" : "steelblue";
+        return (selectedDicePoints[i] && !gameEndStatus) ? "black" : "#73CED6";
     }
 
     function getSpotTotal(i) {
@@ -239,14 +238,14 @@ export default Gameboard = ({ navigation, route }) => {
     return(
         <>
             <Header />
-            <View>
+            <View style={styles.gameboardContainer}>
                 <Container>
                     <Row>{dicesRow}</Row>
                 </Container>
-                <Text>Throws left: {nbrOfThrowsLeft}</Text>
-                <Text>{status}</Text>
-                <Pressable onPress={() => throwDices()}>
-                    <Text>THROW DICES</Text>
+                <Text style={styles.gameInfoText}>Throws left: {nbrOfThrowsLeft}</Text>
+                <Text style={styles.statusText}>{status}</Text>
+                <Pressable style={styles.throwButton} onPress={() => throwDices()}>
+                    <Text style={styles.throwButtonText}>THROW DICES</Text>
                 </Pressable>
                 <Container>
                     <Row>{pointsRow}</Row>
@@ -254,9 +253,9 @@ export default Gameboard = ({ navigation, route }) => {
                 <Container>
                     <Row>{pointsToSelectRow}</Row>
                 </Container>
-                <Text>Player: {playerName}</Text>
-                <Pressable onPress={() => savePlayerPoints()}>
-                    <Text>SAVE POINTS</Text>
+                <Text style={styles.gameInfoText}>Player: {playerName}</Text>
+                <Pressable style={styles.savePointsButton} onPress={() => savePlayerPoints()}>
+                    <Text style={styles.savePointsButtonText}>SAVE POINTS</Text>
                 </Pressable>
             </View>
             <Footer />

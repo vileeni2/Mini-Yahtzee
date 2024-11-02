@@ -6,14 +6,15 @@ export default StyleSheet.create({
     backgroundColor: '#fff'
   },
   header: {
-    marginTop: 30,
+    marginTop: 20,
     marginBottom: 15,
-    backgroundColor: 'skyblue',
+    backgroundColor: '#5A9CA8',
     flexDirection: 'row',
   },
   footer: {
-    marginTop: 20,
-    backgroundColor: 'skyblue',
+    marginTop: 15,
+    marginBottom : 20,
+    backgroundColor: '#5A9CA8',
     flexDirection: 'row'
   },
   title: {
@@ -65,7 +66,7 @@ export default StyleSheet.create({
     color:"#2B2B52",
     fontSize: 20
   },
-  //Scoreboard tyylit
+  //Scoreboard
   scoreboardContainer: {
     flex: 1,
     backgroundColor: '#f4f4f8',
@@ -91,6 +92,7 @@ export default StyleSheet.create({
   scoreText: {
     fontSize: 18,
     color: '#333',
+    textAlign: 'center',
   },
   scoreDate: {
     fontSize: 14,
@@ -108,6 +110,104 @@ export default StyleSheet.create({
     width: '50%',
   },
   clearScoreboardButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+
+  //Home
+  homeContainer: {
+    flex: 1,
+    backgroundColor: '#f4f4f8',
+    padding: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  homeText: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  homeInput: {
+    backgroundColor: '#fff',
+    padding: 10,
+    borderColor: '#ccc',
+    borderWidth: 1,
+    borderRadius: 8,
+    width: '80%',
+    marginVertical: 10,
+  },
+  homeButton: {
+    backgroundColor: '#73CED6',
+    padding: 10,
+    borderRadius: 8,
+    marginVertical: 10,
+    width: '50%',
+    alignItems: 'center',
+  },
+  homeButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  homeTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+    textAlign: 'center',
+    marginVertical: 20,
+  },
+  homeRules: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginVertical: 10,
+    paddingHorizontal: 10,
+  },
+
+  //Gameboard
+  gameboardContainer: {
+    flex: 1,
+    backgroundColor: '#f4f4f8',
+    padding: 20,
+  },
+  gameInfoText: {
+    fontSize: 18,
+    color: '#333',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  statusText: {
+    fontSize: 16,
+    color: '#666',
+    textAlign: 'center',
+    marginVertical: 10,
+  },
+  throwButton: {
+    backgroundColor: '#73CED6',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '60%',
+    marginVertical: 20,
+  },
+  throwButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 18,
+  },
+  savePointsButton: {
+    backgroundColor: '#ff6666',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '50%',
+    marginVertical: 20,
+  },
+  savePointsButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,

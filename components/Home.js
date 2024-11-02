@@ -20,23 +20,23 @@ export default Home = ({ navigation }) => {
     return(
         <>
             <Header />
-            <View>
-                <MaterialCommunityIcons name="information" size={90} color="steelblue" />
+            <View style={styles.homeContainer}>
+                <MaterialCommunityIcons name="information" size={90} color="#73CED6" />
                 {!hasPlayerName ?
                     <>
-                        <Text>For scoreboard enter your name</Text>
-                        <TextInput onChangeText={setPlayerName} autoFocus={true} />
-                        <Pressable onPress={() => handlePlayerName(playerName)}>
-                            <Text>OK</Text>
+                        <Text style={styles.homeText}>For scoreboard enter your name</Text>
+                        <TextInput style={styles.homeInput} onChangeText={setPlayerName} autoFocus={true} />
+                        <Pressable style={styles.homeButton} onPress={() => handlePlayerName(playerName)}>
+                            <Text style={styles.homeButtonText}>OK</Text>
                         </Pressable>
                     </>
                 :
                     <>
-                        <Text>Rules of the game</Text>
-                        <Text multiline="true">
+                        <Text style={styles.homeTitle}>Rules of the game</Text>
+                        <Text style={styles.homeRules} multiline="true">
                             THE GAME: Upper section of the classic Yahtzee
                             dice game. You have {NBR_OF_DICES} dices and
-                            for the every dice you have {NBR_OF_THROWS}
+                            for the every dice you have {NBR_OF_THROWS} {''}
                             throws. After each throw you can keep dices in
                             order to get same dice spot counts as many as
                             possible. In the end of the turn you must select
@@ -44,9 +44,9 @@ export default Home = ({ navigation }) => {
                             Game ends when all points have been selected.
                             The order for selecting those is free.
                         </Text>
-                        <Text>Good luck, {playerName}</Text>
-                        <Pressable onPress={() => navigation.navigate('Gameboard', {player: playerName})}>
-                            <Text>PLAY</Text>
+                        <Text style={styles.homeText}>Good luck, {playerName}</Text>
+                        <Pressable style={styles.homeButton} onPress={() => navigation.navigate('Gameboard', {player: playerName})}>
+                            <Text style={styles.homeButtonText}>PLAY</Text>
                         </Pressable>
                     </>
                 }
